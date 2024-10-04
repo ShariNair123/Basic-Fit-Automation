@@ -46,11 +46,11 @@ public class HomePage {
             commonmethods.clickByJS(ele);
             commonmethods.staticWait(2000);
         }
-        driverContext.Driver.navigate().refresh();
-        commonmethods.staticWait(10000);
+        //driverContext.Driver.navigate().refresh();
+        //commonmethods.staticWait(10000);
         commonmethods.waitForLoad();
-        driverContext.Driver.navigate().refresh();
-        commonmethods.staticWait(10000);
+        //driverContext.Driver.navigate().refresh();
+        //commonmethods.staticWait(10000);
         commonmethods.waitUntilWebElementIsVisible(Search_Item_Fld);
         Search_Item_Fld.click();
         commonmethods.waitUntilWebElementIsVisible(extendedSearch_Field);

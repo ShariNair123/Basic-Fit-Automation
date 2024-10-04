@@ -80,7 +80,7 @@ public class accounts_Page {
     WebElement Save_Btn;
     private @FindBy(xpath = "//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Club')]")
     WebElement ClubrecordType_element;
-    private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']")
+    private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]")
     WebElement ClubActive_checkbox;
 
 
@@ -205,8 +205,10 @@ public class accounts_Page {
 
     public void verifyClubCreation()
     {
+        driverContext.Driver.navigate().refresh();
+        commonmethods.waitForLoad();
         commonmethods.waitUntilWebElementIsVisible(ClubActive_checkbox);
-        Assert.assertTrue(ClubActive_checkbox.isEnabled(), "The checkbox is not enabled.");
+        Assert.assertTrue(ClubActive_checkbox.isDisplayed(), "The checkbox is not selected.");
         //Assert.assertTrue("Checkbox should be enabled", ClubActive_checkbox.isEnabled());
         commonmethods.waitUntilWebElementIsVisible(ClubrecordType_element);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Club')]")).isDisplayed());

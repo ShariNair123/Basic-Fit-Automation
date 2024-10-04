@@ -32,5 +32,6 @@ Feature: Close Club
     And I enter Permanent Closure details
     And I click Next
     And I click Save
+    And I search for the created account
     And I verify that the club is closed permanently
 
