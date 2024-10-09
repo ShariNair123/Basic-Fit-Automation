@@ -46,4 +46,10 @@ public class accountsPageSteps {
     public void iVerifyClubCreation() {
         accountPage.verifyClubCreation();
     }
+
+    //@And("I make the Club Status to Open")
+    //public void iMakeTheClubStatusToOpen() {
+        //accountPage.clubStatusToOpen();
+    //}
+
 }

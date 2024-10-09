@@ -9,6 +9,6 @@ import io.cucumber.testng.CucumberOptions;
         glue = {"stepdefinitions", "base"},
         monochrome = true,
         plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
-        tags = "@CloseClub")
+        tags = "@MODClubClosure")
 public class TestNGTestRunner extends AbstractTestNGCucumberTests {
 }

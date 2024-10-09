@@ -3,6 +3,7 @@ package pages;
 import base.driverContext;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -82,9 +83,10 @@ public class accounts_Page {
     WebElement ClubrecordType_element;
     private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]")
     WebElement ClubActive_checkbox;
-
-
-
+    private @FindBy(xpath = "//span[text()='Open']")
+    WebElement Open_select;
+    private @FindBy(xpath = "//button[@name='SaveEdit']")
+    WebElement Save_button;
 
 
 
@@ -198,6 +200,10 @@ public class accounts_Page {
         commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
         clubIdEdit_Icon.click();
         ClubId_Field.sendKeys(String.valueOf(commonmethods.generateRandomNumber(10000000)));
+        commonmethods.staticWait(2000);
+        commonmethods.scrollIntoTheViewAndClick(driverContext.Driver.findElement(By.xpath("//div[@data-target-selection-name='sfdc:RecordField.Account.Status__c']//lightning-icon[@class='slds-input__icon slds-input__icon_right slds-icon-utility-down slds-icon_container']")));
+        commonmethods.waitUntilWebElementIsVisible(Open_select);
+        Open_select.click();
         commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
         Save_Btn.click();
         commonmethods.staticWait(4000);
@@ -213,4 +219,13 @@ public class accounts_Page {
         commonmethods.waitUntilWebElementIsVisible(ClubrecordType_element);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Club')]")).isDisplayed());
     }
+
+   // public void clubStatusToOpen() {
+        //commonmethods.waitUntilWebElementIsVisible(ClubStatus_edit);
+        //ClubStatus_edit.click();
+        //commonmethods.waitUntilWebElementIsVisible(Open_select);
+        //Open_select.click();
+        //Save_button.click();
+
+    //}
 }
