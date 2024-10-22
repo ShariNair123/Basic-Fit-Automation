@@ -81,8 +81,9 @@ public class accounts_Page {
     WebElement Save_Btn;
     private @FindBy(xpath = "//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Club')]")
     WebElement ClubrecordType_element;
-    private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]")
+    private @FindBy(xpath = "//input[@name='Club_active__c']")
     WebElement ClubActive_checkbox;
+    //span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]
     private @FindBy(xpath = "//span[text()='Open']")
     WebElement Open_select;
     private @FindBy(xpath = "//button[@name='SaveEdit']")
@@ -214,18 +215,11 @@ public class accounts_Page {
         driverContext.Driver.navigate().refresh();
         commonmethods.waitForLoad();
         commonmethods.waitUntilWebElementIsVisible(ClubActive_checkbox);
-        Assert.assertTrue(ClubActive_checkbox.isDisplayed(), "The checkbox is not selected.");
+        //Assert.assertTrue(ClubActive_checkbox.isDisplayed(), "The checkbox is not selected.");
+        Assert.assertTrue(ClubActive_checkbox.isSelected(), "Club active checkbox should be selected.");
         //Assert.assertTrue("Checkbox should be enabled", ClubActive_checkbox.isEnabled());
         commonmethods.waitUntilWebElementIsVisible(ClubrecordType_element);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Club')]")).isDisplayed());
     }
 
-   // public void clubStatusToOpen() {
-        //commonmethods.waitUntilWebElementIsVisible(ClubStatus_edit);
-        //ClubStatus_edit.click();
-        //commonmethods.waitUntilWebElementIsVisible(Open_select);
-        //Open_select.click();
-        //Save_button.click();
-
-    //}
 }

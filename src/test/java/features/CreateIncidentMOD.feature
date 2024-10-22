@@ -21,14 +21,22 @@ Feature: Create Incident MOD
     And I verify that the Account Record Type is Club
     And I perform logout
 
-  @MODClubClosure
-  Scenario: Create Unknown type Incident with MOD Club Closure button
+
+  @MODClubClosureKnown
+  Scenario: Create Known type Incident with MOD Club Closure button
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfit_mod@gmail.com.uat"
     Then I can navigate to Accounts page
     And I search for the created account
     And I click on MOD Club Closure button
-    And I enter Unknown Incident details
-    And I click on Submit
-    And I verify that the Incident is created
-    And I verify that the Account page is updated
+    And I enter Known Incident details
+    And I click on Submit Known Incident
+    And I verify the Incident creation message
+    And I verify that the Club Operational Status icon is updated
+    And I select the Club Activity record created
+    And I verify the Club Activity details
+    And I perform logout
+    And I login into fit application as "basicfittest002@gmail.com"
+    And I search for the created account
+    And I verify that the club is closed
+    And I perform logout

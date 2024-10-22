@@ -22,3 +22,4 @@ Feature: Create Club
     And I add Club Id
     And I verify that the Account Record Type is Club
 
+

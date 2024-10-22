@@ -27,18 +27,36 @@ public class createIncidentMODPageSteps {
         createIncidentMODPage.enterUnknownIncidentDetails();
     }
 
-    @And("I click on Submit")
-    public void iClickOnSubmit() {
-        createIncidentMODPage.submitIncidentDetails();
+    @And("I enter Known Incident details")
+    public void iEnterKnownIncidentDetails() {
+        createIncidentMODPage.enterKnownIncidentDetails();
     }
 
-    @And("I verify that the Incident is created")
-    public void iVerifyIncidentCreation() {
-        createIncidentMODPage.verifyIncidentCreation();
+
+    @And("I click on Submit Unknown Incident")
+    public void iClickOnSubmitUnknownIncident() {
+        createIncidentMODPage.submitUnknownIncidentDetails();
     }
 
-    @And("I verify that the Account page is updated")
-    public void iVerifyAccountPageIsUpdated() {
-        createIncidentMODPage.verifyAccountPage();
+    @And("I click on Submit Known Incident")
+    public void iClickOnSubmitKnownIncident() {
+        createIncidentMODPage.submitKnownIncidentDetails();
     }
+
+    @And("I verify the Incident creation message")
+    public void iVerifyIncidentCreationmessage() {
+        createIncidentMODPage.verifyIncidentCreationMessage();
+    }
+
+    @And("I verify that the Club Operational Status icon is updated")
+    public void iVerifyClubOperationalStatusIconIsUpdated() {
+        createIncidentMODPage.verifyClubOperationalStatusIcon();
+    }
+
+    @And("I verify that the club is closed")
+    public void iVerifyClubClosed() {
+        createIncidentMODPage.verifyClubClosure();
+
+    }
+
 }

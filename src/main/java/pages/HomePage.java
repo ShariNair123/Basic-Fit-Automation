@@ -40,6 +40,8 @@ public class HomePage {
     public void SearchForItem() {
         driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
+        //adding the below 1 line temporary for testing
+        //accounts_Page.setAccountName("Basic-Fit Lyon30 Test Automation");
         commonmethods.staticWait(8000);
         for(WebElement ele: close_Btns)
         {
@@ -53,6 +55,7 @@ public class HomePage {
         //commonmethods.staticWait(10000);
         commonmethods.waitUntilWebElementIsVisible(Search_Item_Fld);
         Search_Item_Fld.click();
+        //Search_Item_Fld.sendKeys(accounts_Page.getAccountName());
         commonmethods.waitUntilWebElementIsVisible(extendedSearch_Field);
         extendedSearch_Field.sendKeys(accounts_Page.getAccountName());
         commonmethods.staticWait(5000);

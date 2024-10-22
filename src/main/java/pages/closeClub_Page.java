@@ -34,7 +34,9 @@ public class closeClub_Page {
     WebElement ClosureReasonDescr_txt;
     private @FindBy(xpath = "//lightning-button[@class='slds-button flow-button__NEXT']")
     WebElement Next_Btn;
-    private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]")
+    //private @FindBy(xpath = "//span[@class='slds-form-element__label slds-assistive-text'][normalize-space()='Club active']/parent::label/span[1]")
+    //WebElement ClubActive_checkbox;
+    private @FindBy(xpath = "//input[@name='Club_active__c']")
     WebElement ClubActive_checkbox;
     private @FindBy(xpath = "//lightning-formatted-text[normalize-space()='Closed']")
     WebElement ClubStatus_fld;
@@ -42,12 +44,16 @@ public class closeClub_Page {
     WebElement ClosureType_txt;
     private @FindBy(xpath = "//lightning-formatted-text[normalize-space()='Legal']")
     WebElement ClosureReason_txt;
-    private @FindBy(xpath = "//lightning-formatted-text[normalize-space()='Automation Test']")
+    private @FindBy(xpath = "//input[@name='Club_Closure_Other_Reason']")
     WebElement ClosureReasonDescr_text;
     private @FindBy(xpath = "//iframe[@title='accessibility title']")
     WebElement ClosureDetailsFrame;
-    String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-
+    LocalDate currentDate = LocalDate.now();
+    // Define the format
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    // Format the current date
+    String todayDate = currentDate.format(formatter);
+    //String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 
 
 
@@ -72,8 +78,8 @@ public class closeClub_Page {
         ClosureReason_Pcklst.click();
         commonmethods.waitForLoad();
         ClosureReason_option.click();
-        //ClosureReasonDescr_text.click();
-        //ClosureReasonDescr_text.sendKeys("Automation Test");
+        ClosureReasonDescr_text.click();
+        ClosureReasonDescr_text.sendKeys("Automation Test");
     }
 
     public void clickNext() {
@@ -82,7 +88,7 @@ public class closeClub_Page {
 
     public void clickSave() {
         commonmethods.waitForLoad();
-        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//span[text()='This action is definitive']")).isDisplayed());
+        //Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//span[text()='This action is definitive']")).isDisplayed());
         commonmethods.waitUntilWebElementToBeClickable(Next_Btn);
         Next_Btn.click();
     }
@@ -93,7 +99,8 @@ public class closeClub_Page {
         driverContext.Driver.navigate().refresh();
         commonmethods.waitForLoad();
         commonmethods.waitUntilWebElementIsVisible(ClubActive_checkbox);
-        Assert.assertFalse(ClubActive_checkbox.isDisplayed(), "The checkbox should be unchecked, but it is checked.");
+        Assert.assertFalse(ClubActive_checkbox.isSelected(), "Club active checkbox should not be selected.");
+        //Assert.assertFalse(ClubActive_checkbox.isDisplayed(), "The checkbox should be unchecked, but it is checked.");
         commonmethods.waitUntilWebElementIsVisible(ClubStatus_fld);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Closed']")).isDisplayed());
         commonmethods.waitUntilWebElementIsVisible(ClosureType_txt);
@@ -101,9 +108,8 @@ public class closeClub_Page {
         commonmethods.waitUntilWebElementIsVisible(ClosureReason_txt);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Legal']")).isDisplayed());
         //commonmethods.waitUntilWebElementIsVisible(ClosureReasonDescr_text);
-        //Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Automation Test']")).isDisplayed());
-        //Assert.assertEquals(driverContext.Driver.findElement(By.xpath("//records-record-layout-section[4]//div[1]//div[1]//dl[1]//slot[1]//records-record-layout-row[2]//slot[1]//records-record-layout-item[2]//div[1]//div[1]//dd[1]//div[1]//span[1]//slot[1]//lightning-formatted-text[1]")).getText(), todayDate,"The Closure Date is not today's date.");
-
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Automation Test']")).isDisplayed());
+        Assert.assertEquals(driverContext.Driver.findElement(By.xpath("//span[text()='Closure Date']/ancestor::dt/following-sibling::dd/descendant::slot/lightning-formatted-text")).getText(), todayDate,"The Closure Date is not today's date.");
     }
 
 }

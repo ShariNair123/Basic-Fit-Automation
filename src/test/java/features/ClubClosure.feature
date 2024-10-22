@@ -21,7 +21,6 @@ Feature: Close Club
     And I verify that the Account Record Type is Club
     And I perform logout
 
-
   @CloseClub
   Scenario: Permanent Club Closure using Close Club button
     Given I am in the login page of fit bit application
