@@ -24,11 +24,11 @@ public class closeClub_Page {
     WebElement CloseClub_Btn;
     private @FindBy(xpath = "//label[text()='Closure Type']/following-sibling::div//select")
     WebElement ClosureType_Pcklst;
-    private @FindBy(xpath = "//select[@id='select-54']/option[@value='Permanently Closed']")
+    private @FindBy(xpath = "//select[@class='slds-select']/option[@value='Permanently Closed']")
     WebElement PermanentlyClosed_option;
-    private @FindBy(xpath = "//select[@id='select-55']")
+    private @FindBy(xpath = "//label[text()='Closure Reason']/following-sibling::div//select")
     WebElement ClosureReason_Pcklst;
-    private @FindBy(xpath = "//select[@id='select-55']/option[@value='Legal']")
+    private @FindBy(xpath = "//select[@class='slds-select']/option[@value='Legal']")
     WebElement ClosureReason_option;
     private @FindBy(xpath = "//input[@name='Club_Closure_Other_Reason']")
     WebElement ClosureReasonDescr_txt;
@@ -71,6 +71,7 @@ public class closeClub_Page {
         driverContext.Driver.switchTo().frame(ClosureDetailsFrame);
         //Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//span[text()='Account - Club - Update Closure/Reopening Details']")).isDisplayed());
         commonmethods.waitUntilWebElementToBeClickable(ClosureType_Pcklst);
+        commonmethods.staticWait(2000);
         ClosureType_Pcklst.click();
         commonmethods.waitForLoad();
         PermanentlyClosed_option.click();
@@ -109,7 +110,14 @@ public class closeClub_Page {
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Legal']")).isDisplayed());
         //commonmethods.waitUntilWebElementIsVisible(ClosureReasonDescr_text);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Automation Test']")).isDisplayed());
-        Assert.assertEquals(driverContext.Driver.findElement(By.xpath("//span[text()='Closure Date']/ancestor::dt/following-sibling::dd/descendant::slot/lightning-formatted-text")).getText(), todayDate,"The Closure Date is not today's date.");
+
+        WebElement ClosureDateElement = driverContext.Driver.findElement(By.xpath("//span[text()='Closure Date']/ancestor::dt/following-sibling::dd/descendant::slot/lightning-formatted-text"));
+        String closureDateText = ClosureDateElement.getText();
+        LocalDate parsedEndDate = LocalDate.parse(closureDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
+        String reformattedEndDateOnly = parsedEndDate.format(formatter);
+        Assert.assertEquals(reformattedEndDateOnly, todayDate, "End date should be today");
+
+        //Assert.assertEquals(driverContext.Driver.findElement(By.xpath("//span[text()='Closure Date']/ancestor::dt/following-sibling::dd/descendant::slot/lightning-formatted-text")).getText(), todayDate,"The Closure Date is not today's date.");
     }
 
 }

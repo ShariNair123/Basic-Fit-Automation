@@ -37,9 +37,14 @@ public class accountsPageSteps {
         accountPage.verifySuccessMessageWhenAccountAddedToGM();
     }
 
-    @And("I add Club Id")
-    public void iAddClubId() {
-        accountPage.addClubId();
+    @And("I add Club Id and Status")
+    public void iAddClubIdnStatus() {
+        accountPage.addClubIdnStatus();
+    }
+
+    @And("I add Club Managers")
+    public void iAddClubManagers() {
+        accountPage.addClubManagers();
     }
 
     @And("I verify that the Account Record Type is Club")

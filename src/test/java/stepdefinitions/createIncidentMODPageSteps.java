@@ -32,8 +32,7 @@ public class createIncidentMODPageSteps {
         createIncidentMODPage.enterKnownIncidentDetails();
     }
 
-
-    @And("I click on Submit Unknown Incident")
+    @And("I click on Submit UnKnown Incident")
     public void iClickOnSubmitUnknownIncident() {
         createIncidentMODPage.submitUnknownIncidentDetails();
     }

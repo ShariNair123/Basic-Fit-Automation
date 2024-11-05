@@ -17,7 +17,8 @@ Feature: Close Club
     And I perform logout
     And I login into fit application as "basicfittest002@gmail.com"
     And I search for the created account
-    And I add Club Id
+    And I add Club Id and Status
+    #And I add Club Managers
     And I verify that the Account Record Type is Club
     And I perform logout
 

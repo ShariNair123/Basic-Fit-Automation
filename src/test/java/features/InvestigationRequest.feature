@@ -1,8 +1,6 @@
-Feature: Create Club
+Feature: Create Investigation Request
 
-
-  @Login @ValidCredentials @All
-  Scenario: Login with valid credentials
+  Background:
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfittest001@gmail.com"
     Then I can navigate to Accounts page
@@ -20,7 +18,19 @@ Feature: Create Club
     And I login into fit application as "basicfittest002@gmail.com"
     And I search for the created account
     And I add Club Id and Status
-    #And I add Club Managers
+    And I add Club Managers
     And I verify that the Account Record Type is Club
+    And I perform logout
 
-
+  @InvestigationRequest
+  Scenario: Create Investigation Request
+    Given I am in the login page of fit bit application
+    When I login into fit application as "automation_cm@gmail.com.uat"
+    Then I can navigate to Accounts page
+    And I search for the created account
+    And I click on Request Investigation button
+    And I enter Investigation request details
+    And I Submit Investigation request
+    And I search for the created account
+    And I select the Investigation Club Activity record created
+    And I verify the Investigation CA record created

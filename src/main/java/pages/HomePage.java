@@ -41,7 +41,7 @@ public class HomePage {
         driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         //adding the below 1 line temporary for testing
-        //accounts_Page.setAccountName("Basic-Fit Lyon30 Test Automation");
+        //accounts_Page.setAccountName("Basic-Fit Lyon3000 Test Automation");
         commonmethods.staticWait(8000);
         for(WebElement ele: close_Btns)
         {

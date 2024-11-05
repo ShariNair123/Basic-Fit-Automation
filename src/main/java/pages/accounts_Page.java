@@ -88,7 +88,14 @@ public class accounts_Page {
     WebElement Open_select;
     private @FindBy(xpath = "//button[@name='SaveEdit']")
     WebElement Save_button;
-
+    private @FindBy(xpath = "//div[contains(@data-target-selection-name,'sfdc:RecordField.Account.ECE_Cluster_Manager__c')]//div//input[contains(@placeholder,'Search People...')]")
+    WebElement ClstrMngr_lbl;
+    private @FindBy(xpath = "//span[@class='slds-media__body']//lightning-base-combobox-formatted-text[@title='Automation CM']")
+    WebElement ClstrMngr_value;
+    private @FindBy(xpath = "//div[contains(@data-target-selection-name,'sfdc:RecordField.Account.ECE_Regio_Manager__c')]//div//input[contains(@placeholder,'Search People...')]")
+    WebElement RgnlMngr_lbl;
+    private @FindBy(xpath = "//span[@class='slds-media__body']//lightning-base-combobox-formatted-text[@title='Automation RM']")
+    WebElement RgnlMngr_value;
 
 
 
@@ -137,7 +144,7 @@ public class accounts_Page {
         driverContext.Driver.findElement(By.xpath("//*[@title='"+accountDeatilsData.get(0).get("FieldExpansionManager")+"']")).click();
         commonmethods.scrollIntoTheViewAndClick(StreetField);
         StreetField.sendKeys(accountDeatilsData.get(0).get("Street"));
-        CityField.sendKeys(accountDeatilsData.get(0).get("City")+String.valueOf(commonmethods.generateRandomNumber(1000)));
+        CityField.sendKeys(accountDeatilsData.get(0).get("City")+String.valueOf(commonmethods.generateRandomNumber(10000)));
         postalCodeField.sendKeys(accountDeatilsData.get(0).get("PostalCode"));
         countryField.sendKeys(accountDeatilsData.get(0).get("Country"));
         Building_numberField.sendKeys(String.valueOf(commonmethods.generateRandomNumber(10000)));
@@ -196,7 +203,7 @@ public class accounts_Page {
         FinishButton.click();
     }
 
-    public void addClubId()
+    public void addClubIdnStatus()
     {
         commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
         clubIdEdit_Icon.click();
@@ -205,6 +212,27 @@ public class accounts_Page {
         commonmethods.scrollIntoTheViewAndClick(driverContext.Driver.findElement(By.xpath("//div[@data-target-selection-name='sfdc:RecordField.Account.Status__c']//lightning-icon[@class='slds-input__icon slds-input__icon_right slds-icon-utility-down slds-icon_container']")));
         commonmethods.waitUntilWebElementIsVisible(Open_select);
         Open_select.click();
+        commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
+        Save_Btn.click();
+        commonmethods.staticWait(4000);
+    }
+
+    public void addClubManagers()
+    {
+        commonmethods.staticWait(2000);
+        commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
+        clubIdEdit_Icon.click();
+        //((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", ClstrMngr_lbl);
+        //ClstrMngr_lbl.sendKeys("Automation CM");
+        //commonmethods.staticWait(1000);
+        //ClstrMngr_value.click();
+
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", RgnlMngr_lbl);
+        commonmethods.staticWait(2000);
+        RgnlMngr_lbl.sendKeys("Automation RM");
+        commonmethods.staticWait(2000);
+        RgnlMngr_value.click();
+
         commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
         Save_Btn.click();
         commonmethods.staticWait(4000);
