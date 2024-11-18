@@ -53,4 +53,14 @@ public class clubActivityPageSteps {
         clubActivityPage.verifyInvestigationCADetails();
     }
 
+    @And("I select the Club Activity record created for temporary club closure without partial reopening")
+    public void iSelectTempCARecordDetailsWithoutPartialReopening() {
+        clubActivityPage.selectCATempClubClosureWithoutPartialReopeningDetails();
+    }
+
+    @And("I verify the Club Activity record created for temporary club closure without partial reopening")
+    public void iVerifyTempCARecordDetailsWithoutPartialReopening() {
+        clubActivityPage.verifyCATempClubClosureWithoutPartialReopeningDetails();
+    }
+
 }
