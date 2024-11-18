@@ -22,7 +22,7 @@ public class HomePage {
     WebElement logout_Label;
     private @FindBy(xpath = "//input[contains(@placeholder,'Search')]/ancestor::lightning-input/descendant::input")
     WebElement extendedSearch_Field;
-    private @FindBy(xpath = "//button[contains(@title,'Close Basic-Fit ')]")
+    private @FindBy(xpath = "//button[contains(@title,'Close Tab')]")
     List<WebElement> close_Btns;
 
 
@@ -41,7 +41,7 @@ public class HomePage {
         driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         //adding the below 1 line temporary for testing
-        //accounts_Page.setAccountName("Basic-Fit Lyon7910 Test Automation");
+        //accounts_Page.setAccountName("Basic-Fit Jemeppe-sur-Meuse Rue de la Station");
         commonmethods.staticWait(8000);
         for(WebElement ele: close_Btns)
         {

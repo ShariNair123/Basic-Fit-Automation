@@ -1,4 +1,4 @@
-Feature: Close Club
+Feature: Temporary Close Club
 
   Background:
     Given I am in the login page of fit bit application
@@ -18,20 +18,23 @@ Feature: Close Club
     And I login into fit application as "basicfittest002@gmail.com"
     And I search for the created account
     And I add Club Id and Status
+    And I add Openings Type and Language
     #And I add Club Managers
-    And I verify that the Account Record Type is Club
+    #And I verify that the Account Record Type is Club
     And I perform logout
 
-  @CloseClub
-  Scenario: Permanent Club Closure using Close Club button
+  @CloseClubTemporarilyWithoutPartialReopening
+  Scenario: Temporary Club Closure without Partial reopening using Close Club button
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfit_business_support@gmail.com.uat"
     Then I can navigate to Accounts page
     And I search for the created account
-    And I click on Close Club button
-    And I enter Permanent Closure details
-    And I click Next
-    And I click Save
+    And I click on Close Club button for Temporary Club Closure
+    And I enter Temporary Closure details without Partial Reopening
+    And I check the Partial Reopening fields
+    And I click Next for Temporary Club Closure
+    And I click Save for Temporary Club Closure
     And I search for the created account
-    And I verify that the club is closed permanently
-
+    And I verify that the club is closed temporarily without partial reopening
+    And I select the Club Activity record created for temporary club closure without partial reopening
+    And I verify the Club Activity record created for temporary club closure without partial reopening

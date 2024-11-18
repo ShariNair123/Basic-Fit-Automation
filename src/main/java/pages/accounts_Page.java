@@ -38,9 +38,9 @@ public class accounts_Page {
 
 
 
-    private @FindBy(xpath = "(//input[contains(@placeholder,'Search User')])[1]")
+    private @FindBy(xpath = "(//input[contains(@placeholder,'Search People...')])[1]")
     WebElement ExpansionmanagerField;
-    private @FindBy(xpath = "(//input[contains(@placeholder,'Search User')])[2]")
+    private @FindBy(xpath = "(//input[contains(@placeholder,'Search People...')])[2]")
     WebElement FieldExpansionmanagerField;
     private @FindBy(xpath = "//textarea[@name='street']")
     WebElement StreetField;
@@ -96,6 +96,18 @@ public class accounts_Page {
     WebElement RgnlMngr_lbl;
     private @FindBy(xpath = "//span[@class='slds-media__body']//lightning-base-combobox-formatted-text[@title='Automation RM']")
     WebElement RgnlMngr_value;
+    private @FindBy(xpath = "//button[@aria-label='Club openings type']")
+    WebElement ClubOpeningsType_drpdwn;
+    private @FindBy(xpath = "//div[@aria-label='Club openings type']//lightning-base-combobox-item[@data-value='24/7']")
+    WebElement ClubOpeningsType_option;
+    private @FindBy(xpath = "//label[normalize-space()='Language']")
+    WebElement Language_lbl;
+    private @FindBy(xpath = "//button[@aria-label='Language']")
+    WebElement Language_drpdwn;
+    private @FindBy(xpath = "//div[@aria-label='Language']//lightning-base-combobox-item[@data-value='French']")
+    WebElement Language_option;
+    private @FindBy(xpath = "//button[contains(@title,'Close Basic-Fit ')]")
+    List<WebElement> close_Btns;
 
 
 
@@ -150,6 +162,7 @@ public class accounts_Page {
         Building_numberField.sendKeys(String.valueOf(commonmethods.generateRandomNumber(10000)));
         SaveButton.click();
         commonmethods.staticWait(4000);
+
 
     }
 
@@ -206,6 +219,7 @@ public class accounts_Page {
     public void addClubIdnStatus()
     {
         commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
+        commonmethods.staticWait(5000);
         clubIdEdit_Icon.click();
         ClubId_Field.sendKeys(String.valueOf(commonmethods.generateRandomNumber(10000000)));
         commonmethods.staticWait(2000);
@@ -232,7 +246,25 @@ public class accounts_Page {
         RgnlMngr_lbl.sendKeys("Automation RM");
         commonmethods.staticWait(2000);
         RgnlMngr_value.click();
+        commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
+        Save_Btn.click();
+        commonmethods.staticWait(4000);
+    }
 
+    public void addOpeningsTypeAndLanguage() {
+        commonmethods.staticWait(2000);
+        commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
+        clubIdEdit_Icon.click();
+        commonmethods.staticWait(2000);
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", ClubOpeningsType_drpdwn);
+        //((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", ClubOpeningsType_drpdwn);
+        //ClubOpeningsType_drpdwn.click();
+        //commonmethods.staticWait(2000);
+        ClubOpeningsType_option.click();
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", Language_drpdwn);
+        //Language_drpdwn.click();
+        commonmethods.staticWait(2000);
+        Language_option.click();
         commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
         Save_Btn.click();
         commonmethods.staticWait(4000);

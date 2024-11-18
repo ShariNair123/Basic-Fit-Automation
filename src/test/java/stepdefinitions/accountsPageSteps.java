@@ -47,6 +47,11 @@ public class accountsPageSteps {
         accountPage.addClubManagers();
     }
 
+    @And("I add Openings Type and Language")
+    public void iAddOpeningsTypeAndLanguage() {
+        accountPage.addOpeningsTypeAndLanguage();
+    }
+
     @And("I verify that the Account Record Type is Club")
     public void iVerifyClubCreation() {
         accountPage.verifyClubCreation();

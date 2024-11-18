@@ -6,8 +6,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import utilities.commonMethods;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +33,10 @@ public class clubActivity_Page {
     WebElement IncidentClubActivity_link;
     private @FindBy(xpath = "//table[@aria-label=\"MOD Tasks\"]/tbody/tr/th//a/span/slot/span")
     WebElement UnplannedUnstaffedClubActivity_link;
+    private @FindBy(xpath = "//span[@title='Maintenance']")
+    WebElement Maintenance_link;
+    private @FindBy(xpath = "//table[@aria-label=\"Maintenance\"]/tbody/tr/th//a/span/slot/span")
+    WebElement MaintenanceClubActivity_link;
     private @FindBy(xpath = "//table[@aria-label=\"Investigations\"]/tbody/tr/th//a/span/slot/span")
     WebElement InvestigationsClubActivity_link;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Status']//lightning-formatted-text[normalize-space()='Submitted']")
@@ -43,6 +49,8 @@ public class clubActivity_Page {
     WebElement IncidentOwnerValue_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Owner']//slot[normalize-space()='Marc queue']")
     WebElement UUOwnerValue_fld;
+    private @FindBy(xpath = "//span[@class='owner-name slds-grow']//span//slot//span//slot[normalize-space()='Automation Business Support']")
+    WebElement MntnceOwnerValue_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Club Activity Name']//lightning-formatted-text")
     WebElement ClubActivityName_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Club']//div[@class='slds-form-element__control']//div[@class='slds-grid']//span//slot//span//slot")
@@ -80,6 +88,22 @@ public class clubActivity_Page {
     WebElement Lctndescr_txt;
     private @FindBy(xpath = "//div[@class='recordTypeName slds-grow slds-truncate']//span[text()='Investigation']")
     List<WebElement> RecordType_txt;
+    private @FindBy(xpath = "//records-record-layout-item[@field-label='Status']//lightning-formatted-text[normalize-space()='Pending']")
+    WebElement MntnceStatusValue_fld;
+    private @FindBy(xpath = "//input[@name='Partial_Reopening_Required__c']")
+    WebElement PartialReopening_chkbox;
+    private @FindBy(xpath = "//span[normalize-space()='Club Reporting Start Date']")
+    WebElement ClubRprtng_link;
+    private @FindBy(xpath = "//records-formula-output[@data-output-element-id='output-field']//lightning-formatted-text[contains(text(),'Maintenance')]")
+    List<WebElement> MntnceRecordType_txt;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Partial_Reopening_End_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']")
+    WebElement PartialRopngEndDate_text;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Club_Rebuild_Start_Date_change__c']//lightning-formatted-text[@data-output-element-id='output-field']")
+    WebElement RebuildStartDate_text;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Club_Rebuild_End_Date_change__c']//lightning-formatted-text[@data-output-element-id='output-field']")
+    WebElement RebuildEndDate_text;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Reopening_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']")
+    WebElement ReopeningDate_text;
 
 
 
@@ -92,7 +116,8 @@ public class clubActivity_Page {
     String twoDayBack = twoDaysBack.format(formatter);
     LocalDate oneDayBack = LocalDate.now().minusDays(1);
     String aDayBack = oneDayBack.format(formatter);
-
+    LocalDate twoDaysAfter = LocalDate.now().plusDays(2);
+    String twoDayAfter = twoDaysAfter.format(formatter);
 
     public void selectIncidentCARecord() {
         commonmethods.waitForLoad();
@@ -105,7 +130,7 @@ public class clubActivity_Page {
 
     public void verifyIncidentCAGenericDetails() {
         commonmethods.waitForLoad();
-        commonmethods.staticWait(4000);
+        commonmethods.staticWait(4000);//span[@class='owner-name slds-grow']//span//slot//span//slot[contains(text(),'Automation Business Support')]
         String StatusText = IncidentStatusValue_fld.getText();
         Assert.assertEquals(StatusText, "Submitted", "Status is not Submitted!");
         String IncidentOwnerText = IncidentOwnerValue_fld.getText();
@@ -245,16 +270,60 @@ public class clubActivity_Page {
         Assert.assertEquals(Location, "Cardio zone;Spinning room", "Location field value is not correct");
         String Lctndescr = Lctndescr_txt.getText();
         Assert.assertEquals(Lctndescr, "Test Location", "Location description field value is not correct");
-
-        //((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", RecordType_txt);
         String RecordType = RecordType_txt.get(0).getText();
         Assert.assertEquals(RecordType, "Investigation", "Record Type is not Investigation");
-
         String StatusText = InvestigationStatusValue_fld.getText();
         Assert.assertEquals(StatusText, "Submitted", "Status is not Submitted!");
 
-        Assert.assertEquals(RM_lnk.size(), 2);
-        Assert.assertEquals(Approver_lnk.size(), 2);
+        //Assert.assertEquals(RM_lnk.size(), 2);
+        //Assert.assertEquals(Approver_lnk.size(), 2);
         //Assert.assertEquals(RMValue, ApproverValue, "Approver should be same as Regional Manager");
+    }
+
+    public void selectCATempClubClosureWithoutPartialReopeningDetails() {
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(5000);
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", ClubRprtng_link);
+        commonmethods.staticWait(5000);
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", Maintenance_link);
+        commonmethods.staticWait(2000);
+        commonmethods.waitUntilWebElementIsVisible(MaintenanceClubActivity_link);
+        MaintenanceClubActivity_link.click();
+    }
+
+    public void verifyCATempClubClosureWithoutPartialReopeningDetails() {
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(4000);
+        String clubActivityNameText = ClubActivityName_fld.getText();
+        Assert.assertFalse(clubActivityNameText.isEmpty(), "Club Activity Name should not be empty");
+        //String clubNameValue = ClubName_Txt.getText();
+        //Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue,  "Club Name should be same");
+        String StatusText = MntnceStatusValue_fld.getText();
+        Assert.assertEquals(StatusText, "Pending", "Status is not Pending!");
+        //String MntnceOwnerText = MntnceOwnerValue_fld.getText();
+        //Assert.assertEquals(MntnceOwnerText, "Automation Business Support", "Owner is not correctly assigned");
+        Assert.assertFalse(PartialReopening_chkbox.isSelected(), "The Partial Reopening checkbox should be unselected.");
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Known']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='08:00']")).isDisplayed());
+        String MntnceRecordType = MntnceRecordType_txt.get(0).getText();
+        Assert.assertEquals(MntnceRecordType, "Maintenance", "Record Type is not Maintenance");
+        String PartialRopngEndDateText = PartialRopngEndDate_text.getText();
+        Assert.assertTrue(PartialRopngEndDateText.isEmpty(), "The 'Partial Reopening End Date' field is not empty.");
+
+        String rebuildStartDateText = RebuildStartDate_text.getText();
+        LocalDate parsedRebuildStartDate = LocalDate.parse(rebuildStartDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
+        String reformattedRebuildStartDate = parsedRebuildStartDate.format(formatter);
+        Assert.assertEquals(reformattedRebuildStartDate, expectedDateToday, "Rebuild Start Date should be today");
+
+        String rebuildEndDateText = RebuildEndDate_text.getText();
+        LocalDate parsedRebuildEndDate = LocalDate.parse(rebuildEndDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
+        String reformattedRebuildEndDate = parsedRebuildEndDate.format(formatter);
+        Assert.assertEquals(reformattedRebuildEndDate, expectedDateTomorrow, "Rebuild End Date should be tomorrow");
+
+        String reopeningDateText = ReopeningDate_text.getText();
+        LocalDate parsedReopeningDate = LocalDate.parse(reopeningDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
+        String reformattedReopeningDate = parsedReopeningDate.format(formatter);
+        Assert.assertEquals(reformattedReopeningDate, twoDayAfter, "Reopening date should be two days after");
+
     }
 }

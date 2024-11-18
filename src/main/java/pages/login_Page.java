@@ -31,7 +31,7 @@ public class login_Page {
 
     public void performLogin(String username) throws IOException {
 
-            commonmethods.staticWait(10000);
+            commonmethods.staticWait(8000);
             userNameField.sendKeys(username);
             password_Field.sendKeys(utilityFecthProperty.fetchPropertyValue(username));
             LoginButton_Field.click();

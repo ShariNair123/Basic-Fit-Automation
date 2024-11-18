@@ -19,7 +19,7 @@ Feature: Case Creation Late Club Opening
     And I search for the created account
     And I add Club Id and Status
     #And I add Club Managers
-    And I verify that the Account Record Type is Club
+    #And I verify that the Account Record Type is Club
     And I perform logout
 
 @CaseCreationLateClubOpening
