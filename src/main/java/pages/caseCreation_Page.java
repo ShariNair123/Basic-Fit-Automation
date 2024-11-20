@@ -28,7 +28,9 @@ public class caseCreation_Page {
     WebElement Cases_title;
     private @FindBy(xpath = "//div[@title='New']")
     WebElement NewCase_Btn;
-    private @FindBy(xpath = "//label[.//span[text()='Late Club Opening']]//span[@class='slds-radio--faux topdown-radio--faux']")
+    private @FindBy(xpath = "//span[normalize-space()='Agent HC Belgium (Dutch)']")
+    WebElement AgentDutch_lbl;
+    private @FindBy(xpath = "//label[.//span[text()='Late Club Opening']]//span[@class='slds-radio--faux']")
     WebElement LateClubOpening_RdoBtn;
     private @FindBy(xpath = "//span[normalize-space()='Next']")
     WebElement Next_Btn;
@@ -79,8 +81,12 @@ public class caseCreation_Page {
     public void selectRecordTypeLateClubOpening() {
         commonmethods.staticWait(2000);
         commonmethods.waitForLoad();
-        commonmethods.waitUntilWebElementIsVisible(LateClubOpening_RdoBtn);
-        LateClubOpening_RdoBtn.click();
+        commonmethods.staticWait(4000);
+        //commonmethods.waitUntilWebElementIsVisible(LateClubOpening_RdoBtn);
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", AgentDutch_lbl);
+        commonmethods.staticWait(4000);
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", LateClubOpening_RdoBtn);
+        //LateClubOpening_RdoBtn.click();
         Next_Btn.click();
     }
 

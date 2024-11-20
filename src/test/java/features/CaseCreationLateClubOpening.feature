@@ -26,7 +26,7 @@ Feature: Case Creation Late Club Opening
 Scenario: Create a Case with Record Type as Late Club Opening
   Given I am in the login page of fit bit application
   When I login into fit application as "basicfit_rs@gmail.com.uat"
-  Then I can navigate to Cases page
+  #Then I can navigate to Cases page
   Then I click on New button
   And I select the Record Type as Late Club Opening
   And I verify the auto populated case details

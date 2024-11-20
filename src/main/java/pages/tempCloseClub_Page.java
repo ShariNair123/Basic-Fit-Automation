@@ -2,6 +2,7 @@ package pages;
 
 import base.driverContext;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -52,9 +53,12 @@ public class tempCloseClub_Page {
     WebElement ClubRebldEndDate_clndr;
     private @FindBy(xpath = "//input[@name='Club_Re_open_Date']")
     WebElement ClubReopenDate_clndr;
+    private @FindBy(xpath = "//input[@name='Partial_Reopening_End_Date']")
+    WebElement ClubPartialReopenEndDate_clndr;
     LocalDate today = LocalDate.now();
     LocalDate tomorrow = LocalDate.now().plusDays(1);
     LocalDate twodaysafter = LocalDate.now().plusDays(2);
+    LocalDate threedaysafter = LocalDate.now().plusDays(3);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
     private @FindBy(xpath = "//select[@name='Please_fill_in_Reopening_Time']")
     WebElement ReopeningTime_drpdwn;
@@ -62,6 +66,11 @@ public class tempCloseClub_Page {
     WebElement ReopeningTime_option;
     private @FindBy(xpath = "//input[@name='Partial_Reopening']")
     WebElement PartialReopening_chkbox;
+    private @FindBy(xpath = "//select[@name='Partial_Opening_Hours_Type']")
+    WebElement PartialReopngHoursType_drpdwn;
+    private @FindBy(xpath = "//option[@value='Opening_hours_type_choices.Type 1']")
+    WebElement PartialReopngHoursType_option;
+
     //LocalDate currentDate = LocalDate.now();
     //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     //String todayDate = currentDate.format(formatter);
@@ -78,7 +87,7 @@ public class tempCloseClub_Page {
         commonmethods.waitForLoad();
     }
 
-    public void enterTemporaryClosureDetailsWithoutPartialReopening() {
+    public void enterTemporaryClosureDetails() {
         commonmethods.waitForLoad();
         commonmethods.waitUntilWebElementIsVisible(ClosureDetailsFrame);
         driverContext.Driver.switchTo().frame(ClosureDetailsFrame);
@@ -110,8 +119,21 @@ public class tempCloseClub_Page {
         ReopeningTime_option.click();
     }
 
-    public void checkPartialReopeningFields() {
+    public void checkPartialReopeningFieldsForWithoutPartialReopeningScenario() {
         Assert.assertFalse(PartialReopening_chkbox.isSelected(), "The Partial Reopening checkbox should be unselected.");
+    }
+
+    public void enterPartialReopeningFieldValues() {
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", PartialReopening_chkbox);
+        //PartialReopening_chkbox.click();
+        commonmethods.staticWait(2000);
+        ClubPartialReopenEndDate_clndr.click();
+        commonmethods.staticWait(2000);
+        String threedaysafterDate = threedaysafter.format(formatter);
+        WebElement threedaysafterElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + threedaysafterDate + "']"));
+        threedaysafterElement.click();
+        PartialReopngHoursType_drpdwn.click();
+        PartialReopngHoursType_option.click();
     }
 
     public void clickNext() {
@@ -125,7 +147,7 @@ public class tempCloseClub_Page {
         Next_Btn.click();
     }
 
-    public void verifyTemporaryClubClosureWithoutPartialReopening() {
+    public void verifyTemporaryClubClosure() {
         driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         driverContext.Driver.navigate().refresh();
@@ -148,4 +170,5 @@ public class tempCloseClub_Page {
         String reformattedEndDateOnly = parsedEndDate.format(formatter);
         Assert.assertEquals(reformattedEndDateOnly, todayDate, "End date should be today");
     }
+
 }

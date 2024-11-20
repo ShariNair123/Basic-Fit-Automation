@@ -41,7 +41,7 @@ public class HomePage {
         driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         //adding the below 1 line temporary for testing
-        //accounts_Page.setAccountName("Basic-Fit Jemeppe-sur-Meuse Rue de la Station");
+        //accounts_Page.setAccountName("Basic-Fit Lyon5187 Test Automation");
         commonmethods.staticWait(8000);
         for(WebElement ele: close_Btns)
         {

@@ -12,9 +12,14 @@ public class tempCloseClubPageSteps {
         tempCloseClubPage.clickCloseButton();
     }
 
-    @And("I enter Temporary Closure details without Partial Reopening")
-    public void iEnterTemporaryClosureDetailsWithoutPartialReopening() {
-        tempCloseClubPage.enterTemporaryClosureDetailsWithoutPartialReopening();
+    @And("I enter Temporary Closure details")
+    public void iEnterTemporaryClosureDetails() {
+        tempCloseClubPage.enterTemporaryClosureDetails();
+    }
+
+    @And("I enter the Partial Reopening field values")
+    public void iEnterPartialReopeningFieldValues() {
+        tempCloseClubPage.enterPartialReopeningFieldValues();
     }
 
     @And("I click Next for Temporary Club Closure")
@@ -27,14 +32,14 @@ public class tempCloseClubPageSteps {
         tempCloseClubPage.clickSave();
     }
 
-    @And("I verify that the club is closed temporarily without partial reopening")
-    public void iVerifyThatTheClubIsClosedTemporarilyWithoutPartialReopening() {
-        tempCloseClubPage.verifyTemporaryClubClosureWithoutPartialReopening();
+    @And("I verify that the club is closed temporarily")
+    public void iVerifyThatTheClubIsClosedTemporarily() {
+        tempCloseClubPage.verifyTemporaryClubClosure();
     }
 
-    @And("I check the Partial Reopening fields")
-    public void iCheckThePartialReopeningFields() {
-        tempCloseClubPage.checkPartialReopeningFields();
+    @And("I check the Partial Reopening fields for Without Partial Reopening scenario")
+    public void iCheckThePartialReopeningFieldsForWithoutPartialReopeningScenario() {
+        tempCloseClubPage.checkPartialReopeningFieldsForWithoutPartialReopeningScenario();
     }
 
 }

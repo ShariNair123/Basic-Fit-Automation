@@ -49,8 +49,8 @@ public class clubActivity_Page {
     WebElement IncidentOwnerValue_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Owner']//slot[normalize-space()='Marc queue']")
     WebElement UUOwnerValue_fld;
-    private @FindBy(xpath = "//span[@class='owner-name slds-grow']//span//slot//span//slot[normalize-space()='Automation Business Support']")
-    WebElement MntnceOwnerValue_fld;
+    //private @FindBy(xpath = "//span[@class='owner-name slds-grow']//span//slot//span//slot[contains(text(),'Automation Business Support')]")
+    //WebElement MntnceOwnerValue_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Club Activity Name']//lightning-formatted-text")
     WebElement ClubActivityName_fld;
     private @FindBy(xpath = "//records-record-layout-item[@field-label='Club']//div[@class='slds-form-element__control']//div[@class='slds-grid']//span//slot//span//slot")
@@ -104,6 +104,9 @@ public class clubActivity_Page {
     WebElement RebuildEndDate_text;
     private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Reopening_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']")
     WebElement ReopeningDate_text;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Partial_Reopening_End_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']")
+    WebElement PartialReopeningDate_text;
+    List<WebElement> MntnceOwnerValue_fld = driverContext.Driver.findElements(By.xpath("//records-record-layout-item[@field-label='Owner']//slot[contains(text(), 'Automation Business Support')]"));
 
 
 
@@ -118,6 +121,8 @@ public class clubActivity_Page {
     String aDayBack = oneDayBack.format(formatter);
     LocalDate twoDaysAfter = LocalDate.now().plusDays(2);
     String twoDayAfter = twoDaysAfter.format(formatter);
+    LocalDate threeDaysAfter = LocalDate.now().plusDays(3);
+    String threeDayAfter = threeDaysAfter.format(formatter);
 
     public void selectIncidentCARecord() {
         commonmethods.waitForLoad();
@@ -138,7 +143,7 @@ public class clubActivity_Page {
         String clubActivityNameText = ClubActivityName_fld.getText();
         Assert.assertFalse(clubActivityNameText.isEmpty(), "Club Activity Name should not be empty");
         String clubNameValue = ClubName_Txt.getText();
-        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue,  "Club Name should be same");
+        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue, "Club Name should be same");
         WebElement closureDateElement = driverContext.Driver.findElement(By.xpath("//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Closure_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']"));
         String closureDateText = closureDateElement.getText();
         String closureDateOnly = closureDateText.split(" ")[0];
@@ -188,7 +193,7 @@ public class clubActivity_Page {
         String clubActivityNameText = ClubActivityName_fld.getText();
         Assert.assertFalse(clubActivityNameText.isEmpty(), "Club Activity Name should not be empty");
         String clubNameValue = ClubName_Txt.getText();
-        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue,  "Club Name should be same");
+        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue, "Club Name should be same");
         String StatusText = UUStatusValue_fld.getText();
         Assert.assertEquals(StatusText, "Pending", "Status is not Pending!");
         String UUOwnerText = UUOwnerValue_fld.getText();
@@ -233,7 +238,7 @@ public class clubActivity_Page {
         String clubActivityNameText = ClubActivityName_fld.getText();
         Assert.assertFalse(clubActivityNameText.isEmpty(), "Club Activity Name should not be empty");
         String clubNameValue = ClubName_Txt.getText();
-        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue,  "Club Name should be same");
+        Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue, "Club Name should be same");
 
         String IncCtgry = IncCtgry_txt.getText();
         Assert.assertEquals(IncCtgry, "Medical", "Incident Category field is not populated correctly");
@@ -280,7 +285,7 @@ public class clubActivity_Page {
         //Assert.assertEquals(RMValue, ApproverValue, "Approver should be same as Regional Manager");
     }
 
-    public void selectCATempClubClosureWithoutPartialReopeningDetails() {
+    public void selectCATempClubClosure() {
         commonmethods.waitForLoad();
         commonmethods.staticWait(5000);
         ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", ClubRprtng_link);
@@ -291,7 +296,7 @@ public class clubActivity_Page {
         MaintenanceClubActivity_link.click();
     }
 
-    public void verifyCATempClubClosureWithoutPartialReopeningDetails() {
+    public void verifyCATempClubClosureGenericDetails() {
         commonmethods.waitForLoad();
         commonmethods.staticWait(4000);
         String clubActivityNameText = ClubActivityName_fld.getText();
@@ -302,13 +307,12 @@ public class clubActivity_Page {
         Assert.assertEquals(StatusText, "Pending", "Status is not Pending!");
         //String MntnceOwnerText = MntnceOwnerValue_fld.getText();
         //Assert.assertEquals(MntnceOwnerText, "Automation Business Support", "Owner is not correctly assigned");
-        Assert.assertFalse(PartialReopening_chkbox.isSelected(), "The Partial Reopening checkbox should be unselected.");
+        //Assert.assertEquals(MntnceOwnerValue_fld.size(), 0);
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Known']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='08:00']")).isDisplayed());
         String MntnceRecordType = MntnceRecordType_txt.get(0).getText();
         Assert.assertEquals(MntnceRecordType, "Maintenance", "Record Type is not Maintenance");
-        String PartialRopngEndDateText = PartialRopngEndDate_text.getText();
-        Assert.assertTrue(PartialRopngEndDateText.isEmpty(), "The 'Partial Reopening End Date' field is not empty.");
+
 
         String rebuildStartDateText = RebuildStartDate_text.getText();
         LocalDate parsedRebuildStartDate = LocalDate.parse(rebuildStartDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
@@ -324,6 +328,24 @@ public class clubActivity_Page {
         LocalDate parsedReopeningDate = LocalDate.parse(reopeningDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
         String reformattedReopeningDate = parsedReopeningDate.format(formatter);
         Assert.assertEquals(reformattedReopeningDate, twoDayAfter, "Reopening date should be two days after");
+    }
 
+    public void verifyCATempClubClosureSpecificDetailsWithoutPartialReopening() {
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(4000);
+        Assert.assertFalse(PartialReopening_chkbox.isSelected(), "The Partial Reopening checkbox should be unselected.");
+        String PartialRopngEndDateText = PartialRopngEndDate_text.getText();
+        Assert.assertTrue(PartialRopngEndDateText.isEmpty(), "The 'Partial Reopening End Date' field is not empty.");
+    }
+
+    public void verifyCATempClubClosureSpecificDetailsForPartialReopening() {
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(4000);
+        Assert.assertTrue(PartialReopening_chkbox.isSelected(), "The Partial Reopening checkbox should be selected.");
+        String partialReopeningDateText = PartialReopeningDate_text.getText();
+        LocalDate parsedPartialReopeningDate = LocalDate.parse(partialReopeningDateText, DateTimeFormatter.ofPattern("d-M-yyyy")); // Parse with single 'd' and 'M'
+        String reformattedPartialReopeningDate = parsedPartialReopeningDate.format(formatter);
+        Assert.assertEquals(reformattedPartialReopeningDate, threeDayAfter, "Reopening date should be three days after");
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Type 1']")).isDisplayed());
     }
 }

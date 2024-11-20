@@ -30,11 +30,29 @@ Feature: Temporary Close Club
     Then I can navigate to Accounts page
     And I search for the created account
     And I click on Close Club button for Temporary Club Closure
-    And I enter Temporary Closure details without Partial Reopening
-    And I check the Partial Reopening fields
+    And I enter Temporary Closure details
+    And I check the Partial Reopening fields for Without Partial Reopening scenario
     And I click Next for Temporary Club Closure
     And I click Save for Temporary Club Closure
     And I search for the created account
-    And I verify that the club is closed temporarily without partial reopening
-    And I select the Club Activity record created for temporary club closure without partial reopening
-    And I verify the Club Activity record created for temporary club closure without partial reopening
+    And I verify that the club is closed temporarily
+    And I select the Club Activity record created for temporary club closure
+    And I verify the Club Activity record generic details created for temporary club closure
+    And I verify the Club Activity record specific details created without Partial reopening
+
+  @CloseClubTemporarilyWithPartialReopening
+  Scenario: Temporary Club Closure with Partial reopening using Close Club button
+    Given I am in the login page of fit bit application
+    When I login into fit application as "basicfit_business_support@gmail.com.uat"
+    Then I can navigate to Accounts page
+    And I search for the created account
+    And I click on Close Club button for Temporary Club Closure
+    And I enter Temporary Closure details
+    And I enter the Partial Reopening field values
+    And I click Next for Temporary Club Closure
+    And I click Save for Temporary Club Closure
+    And I search for the created account
+    And I verify that the club is closed temporarily
+    And I select the Club Activity record created for temporary club closure
+    And I verify the Club Activity record generic details created for temporary club closure
+    And I verify the Club Activity record specific details for Partial reopening

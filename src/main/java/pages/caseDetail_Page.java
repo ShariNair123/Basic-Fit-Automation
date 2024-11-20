@@ -33,6 +33,7 @@ public class caseDetail_Page {
         commonmethods.waitForLoad();
         commonmethods.staticWait(2000);
         String clubInvValue = ClubInv_Txt.getText();
+        commonmethods.staticWait(2000);
         Assert.assertEquals(accounts_Page.getAccountName(), clubInvValue, "Club Name should be same");
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='Test Automation Case']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='MOD']")).isDisplayed());
