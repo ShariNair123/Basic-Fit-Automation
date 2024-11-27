@@ -52,6 +52,11 @@ public class accountsPageSteps {
         accountPage.addOpeningsTypeAndLanguage();
     }
 
+    @And("I add Club Cost Center and Club SAP name")
+    public void iAddCCAndSAPName() {
+        accountPage.addCCAndSAPName();
+    }
+
     @And("I verify that the Account Record Type is Club")
     public void iVerifyClubCreation() {
         accountPage.verifyClubCreation();

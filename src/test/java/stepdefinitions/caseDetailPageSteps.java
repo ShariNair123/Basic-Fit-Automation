@@ -18,4 +18,14 @@ public class caseDetailPageSteps {
     public void iVerifyLateClubOpeningCaseDetails() {
         caseDetailPage.verifyLateClubOpeningCaseDetails();
     }
+
+    @And("I select the MOD Case Club Activity record created")
+    public void iSelectMODCaseDetails() {
+        caseDetailPage.selectMODCaseDetails();
+    }
+
+    @And("I verify the MOD Case Club Activity record details")
+    public void iVerifyMODCaseDetails() {
+        caseDetailPage.verifyMODCaseDetails();
+    }
 }

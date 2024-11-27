@@ -29,19 +29,34 @@ public class caseCreationPageSteps {
         caseCreationPage.selectRecordTypeLateClubOpening();
     }
 
-    @And("I verify the auto populated case details")
+    @And("I verify that the MOD Record Type is automatically selected")
+    public void iVerifyAutomaticRecordSelectionOfMODRecordType() {
+        caseCreationPage.verifyRecordTypeMOD();
+    }
+
+    @And("I verify the auto populated case details for Late Club Opening")
     public void iVerifyAutoPopulatedLateClubOpeningCaseDetails() {
         caseCreationPage.verifyAutoPopulatedLateClubOpeningCaseDetails();
     }
 
-    @And("I enter the required case test data")
+    @And("I verify the auto populated case details for MOD Record Type")
+    public void iVerifyAutoPopulatedMODCaseDetails() {
+        caseCreationPage.verifyAutoPopulatedMODCaseDetails();
+    }
+
+    @And("I enter the required case test data for Late Club Opening")
     public void iEnterRequiredLateClubOpeningCaseTestData() {
         caseCreationPage.enterRequiredLateClubOpeningCaseTestData();
     }
 
-    @And("I submit the late club opening case")
-    public void iSubmitLateClubOpeningCase() {
-        caseCreationPage.submitLateClubOpeningCase();
+    @And("I enter the required case test data for MOD Record Type")
+    public void iEnterRequiredMODCaseTestData() {
+        caseCreationPage.enterRequiredMODCaseTestData();
+    }
+
+    @And("I submit the case")
+    public void iSubmitCase() {
+        caseCreationPage.submitCase();
     }
 
     @And("I verify the success toast message for case creation")

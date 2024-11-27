@@ -20,7 +20,7 @@ public class accounts_Page {
         PageFactory.initElements(driverContext.Driver, this);
     }
 
-    commonMethods commonmethods = new commonMethods();
+    static commonMethods commonmethods = new commonMethods();
 
     private @FindBy(xpath = "//li[@data-target-selection-name='sfdc:StandardButton.Account.New']//div[@title='New'][normalize-space()='New']")
     WebElement NewButton;
@@ -106,10 +106,18 @@ public class accounts_Page {
     WebElement Language_drpdwn;
     private @FindBy(xpath = "//div[@aria-label='Language']//lightning-base-combobox-item[@data-value='French']")
     WebElement Language_option;
+    private @FindBy(xpath = "//input[@name='Club_Cost_Center__c']")
+    WebElement CostCenter_txt;
+    private @FindBy(xpath = "//input[@name='Club_Name_to_SAP__c']")
+    WebElement SAPName_txt;
     private @FindBy(xpath = "//button[contains(@title,'Close Basic-Fit ')]")
     List<WebElement> close_Btns;
 
+    public static String costCenter = String.valueOf(commonmethods.generateRandomNumberInRange());
 
+    public static String getCostCenter() {
+        return costCenter;
+    }
 
     Double TotalItemPrice=0.0;
 
@@ -269,6 +277,22 @@ public class accounts_Page {
         Save_Btn.click();
         commonmethods.staticWait(4000);
     }
+
+    public void addCCAndSAPName() {
+        commonmethods.staticWait(2000);
+        commonmethods.waitUntilWebElementToBeClickable(clubIdEdit_Icon);
+        clubIdEdit_Icon.click();
+        commonmethods.staticWait(2000);
+
+        CostCenter_txt.sendKeys(costCenter);
+
+        commonmethods.staticWait(2000);
+        SAPName_txt.sendKeys("Test Automation");
+        commonmethods.waitUntilWebElementToBeClickable(Save_Btn);
+        Save_Btn.click();
+        commonmethods.staticWait(4000);
+    }
+
 
     public void verifyClubCreation()
     {

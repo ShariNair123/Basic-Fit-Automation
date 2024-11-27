@@ -1,4 +1,4 @@
-Feature: Case Creation Late Club Opening
+Feature: Case Creation MOD
 
   Background:
     Given I am in the login page of fit bit application
@@ -18,19 +18,22 @@ Feature: Case Creation Late Club Opening
     And I login into fit application as "basicfittest002@gmail.com"
     And I search for the created account
     And I add Club Id and Status
+    And I add Club Cost Center and Club SAP name
+    #And I add Openings Type and Language
     #And I add Club Managers
     #And I verify that the Account Record Type is Club
     And I perform logout
 
-@CaseCreationLateClubOpening
-Scenario: Create a Case with Record Type as Late Club Opening
-  Given I am in the login page of fit bit application
-  When I login into fit application as "basicfit_rs@gmail.com.uat"
-  #Then I can navigate to Cases page
-  Then I click on New button
-  And I select the Record Type as Late Club Opening
-  And I verify the auto populated case details for Late Club Opening
-  And I enter the required case test data for Late Club Opening
-  And I submit the case
-  And I verify the success toast message for case creation
-  And I verify the created Late Club Opening case details
+  @CaseCreationMOD
+  Scenario: Create a Case with Record Type as MOD
+    Given I am in the login page of fit bit application
+    When I login into fit application as "basicfit_mod@gmail.com.uat"
+    Then I can navigate to Cases page
+    Then I click on New button
+    And I verify that the MOD Record Type is automatically selected
+    And I verify the auto populated case details for MOD Record Type
+    And I enter the required case test data for MOD Record Type
+    And I submit the case
+    And I verify the success toast message for case creation
+    And I verify the MOD Case Club Activity record details
+

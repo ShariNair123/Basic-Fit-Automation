@@ -10,11 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.io.IOException;
-import java.sql.Driver;
 import java.time.Duration;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class commonMethods {
 
@@ -81,6 +78,11 @@ public class commonMethods {
     public  int generateRandomNumber(int no) {
         Random random = new Random();
         return random.nextInt(no) + 1;
+    }
+
+    public int generateRandomNumberInRange() {
+        Random random = new Random();
+        return random.nextInt(1000) + 9000; // Generates a random number between 9000 and 9999
     }
 
     public void waitForLoad() {
