@@ -76,4 +76,5 @@ public class caseDetail_Page {
         String expectedSubjectText = todayDate + " - Incident / Accident report - " + clubName;
        Assert.assertEquals(actualSubjectText, expectedSubjectText, "Subject field text does not match the expected format.");
     }
+
 }

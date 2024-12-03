@@ -1,5 +1,4 @@
-Feature: UnPlanned UnStaffed Request To MARC
-
+Feature: Case Creation Incident/Accident
   Background:
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfittest001@gmail.com"
@@ -18,19 +17,19 @@ Feature: UnPlanned UnStaffed Request To MARC
     And I login into fit application as "basicfittest002@gmail.com"
     And I search for the created account
     And I add Club Id and Status
+    And I add Club Cost Center and Club SAP name
     #And I add Club Managers
-    And I verify that the Account Record Type is Club
+    #And I verify that the Account Record Type is Club
     And I perform logout
 
-  @RequestToMARCUnPlannedUnStaffed
-  Scenario: Create UnPlanned UnStaffed request with Request to MARC button
+  @CaseCreationIncidentAccident
+  Scenario: Create a Case with Record Type as Incident Accident
     Given I am in the login page of fit bit application
-    When I login into fit application as "basicfit_mod@gmail.com.uat"
-    Then I can navigate to Accounts page
-    And I search for the created account
-    And I click on Request to MARC button
-    And I enter UnPlanned UnStaffed request details
-    And I confirm the request creation
-    And I select the UnPlanned UnStaffed Club Activity record created
-    And I verify the Club Activity details for the UnPlanned UnStaffed request created
-
+    When I login into fit application as "basicfit_marc@gmail.com.uat"
+    Then I can navigate to Cases page in CM App
+    Then I click on New button
+    And I verify that the Incident Accident Record Type is automatically selected
+    And I verify the auto populated case details for Incident Accident Record Type
+    And I enter the required case test data for Incident Accident
+    And I submit the case
+    And I verify the success toast message for case creation

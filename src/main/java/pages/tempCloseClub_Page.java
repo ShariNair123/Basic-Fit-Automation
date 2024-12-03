@@ -3,6 +3,7 @@ package pages;
 import base.driverContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -48,18 +49,25 @@ public class tempCloseClub_Page {
     private @FindBy(xpath = "//input[@name='Club_Closure_Other_Reason']")
     WebElement ClosureReasonDescr_text;
     private @FindBy(xpath = "//input[@name='Club_Rebuild_Start_Date_change']")
-    WebElement ClubRebldStrtDate_clndr;
+    WebElement ClubRebldStrtDate_fld;
     private @FindBy(xpath = "//input[@name='Club_Rebuild_End_Date_change']")
-    WebElement ClubRebldEndDate_clndr;
+    WebElement ClubRebldEndDate_fld;
     private @FindBy(xpath = "//input[@name='Club_Re_open_Date']")
-    WebElement ClubReopenDate_clndr;
+    WebElement ClubReopenDate_fld;
     private @FindBy(xpath = "//input[@name='Partial_Reopening_End_Date']")
-    WebElement ClubPartialReopenEndDate_clndr;
+    WebElement ClubPartialReopenEndDate_fld;
     LocalDate today = LocalDate.now();
     LocalDate tomorrow = LocalDate.now().plusDays(1);
     LocalDate twodaysafter = LocalDate.now().plusDays(2);
     LocalDate threedaysafter = LocalDate.now().plusDays(3);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String formattedRbldStrtDate = today.format(formatter);
+    String formattedRbldEndDate = tomorrow.format(formatter);
+    String formattedReopenDate = twodaysafter.format(formatter);
+    String formattedPartialReopenDate = threedaysafter.format(formatter);
+
+
     private @FindBy(xpath = "//select[@name='Please_fill_in_Reopening_Time']")
     WebElement ReopeningTime_drpdwn;
     private @FindBy(xpath = "//option[@value='Club_Activity_ReopeningTime_Choices.08:00']")
@@ -102,19 +110,28 @@ public class tempCloseClub_Page {
         TempClosureReason_option.click();
         ClosureReasonDescr_text.click();
         ClosureReasonDescr_text.sendKeys("Automation Test");
-        ClubRebldStrtDate_clndr.click();
-        String todayDate = today.format(formatter);
-        WebElement todayElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + todayDate + "']"));
-        todayElement.click();
-        ClubRebldEndDate_clndr.click();
-        String tomorrowDate = tomorrow.format(formatter);
-        WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
-        tomorrowElement.click();
+        ClubRebldStrtDate_fld.click();
+        ClubRebldStrtDate_fld.clear();
+        ClubRebldStrtDate_fld.sendKeys(formattedRbldStrtDate);
+        ClubRebldStrtDate_fld.sendKeys(Keys.TAB);
+        ClubRebldStrtDate_fld.sendKeys(Keys.TAB);
+        //String todayDate = today.format(formatter);
+        //WebElement todayElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + todayDate + "']"));
+        //todayElement.click();
         commonmethods.staticWait(2000);
-        ClubReopenDate_clndr.click();
-        String twodaysafterDate = twodaysafter.format(formatter);
-        WebElement twodaysafterElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + twodaysafterDate + "']"));
-        twodaysafterElement.click();
+        ClubRebldEndDate_fld.click();
+        ClubRebldEndDate_fld.clear();
+        ClubRebldEndDate_fld.sendKeys(formattedRbldEndDate);
+        //String tomorrowDate = tomorrow.format(formatter);
+        //WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
+        //tomorrowElement.click();
+        commonmethods.staticWait(2000);
+        ClubReopenDate_fld.click();
+        ClubReopenDate_fld.clear();
+        ClubReopenDate_fld.sendKeys(formattedReopenDate);
+        //String twodaysafterDate = twodaysafter.format(formatter);
+        //WebElement twodaysafterElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + twodaysafterDate + "']"));
+        //twodaysafterElement.click();
         ReopeningTime_drpdwn.click();
         ReopeningTime_option.click();
     }
@@ -127,11 +144,13 @@ public class tempCloseClub_Page {
         ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", PartialReopening_chkbox);
         //PartialReopening_chkbox.click();
         commonmethods.staticWait(2000);
-        ClubPartialReopenEndDate_clndr.click();
-        commonmethods.staticWait(2000);
-        String threedaysafterDate = threedaysafter.format(formatter);
-        WebElement threedaysafterElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + threedaysafterDate + "']"));
-        threedaysafterElement.click();
+        ClubPartialReopenEndDate_fld.click();
+        ClubPartialReopenEndDate_fld.clear();
+        ClubPartialReopenEndDate_fld.sendKeys(formattedPartialReopenDate);
+        //commonmethods.staticWait(2000);
+        //String threedaysafterDate = threedaysafter.format(formatter);
+        //WebElement threedaysafterElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + threedaysafterDate + "']"));
+        //threedaysafterElement.click();
         PartialReopngHoursType_drpdwn.click();
         PartialReopngHoursType_option.click();
     }
@@ -148,7 +167,7 @@ public class tempCloseClub_Page {
     }
 
     public void verifyTemporaryClubClosure() {
-        driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driverContext.Driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         driverContext.Driver.navigate().refresh();
         commonmethods.waitForLoad();

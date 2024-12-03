@@ -19,6 +19,11 @@ public class caseCreationPageSteps {
         caseCreationPage.goToCasesPage();
     }
 
+    @And("I can navigate to Cases page in CM App")
+    public void iNavigateToCasesPageInCMApp() {
+        caseCreationPage.goToCMAppCasesPage();
+    }
+
     @And("I click on New button")
     public void iClickNewButton() {
         caseCreationPage.clickNewButton();
@@ -34,6 +39,11 @@ public class caseCreationPageSteps {
         caseCreationPage.verifyRecordTypeMOD();
     }
 
+    @And("I verify that the Incident Accident Record Type is automatically selected")
+    public void iVerifyIncidentAccidentRecordType() {
+        caseCreationPage.verifyRecordTypeIncidentAccident();
+    }
+
     @And("I verify the auto populated case details for Late Club Opening")
     public void iVerifyAutoPopulatedLateClubOpeningCaseDetails() {
         caseCreationPage.verifyAutoPopulatedLateClubOpeningCaseDetails();
@@ -44,6 +54,11 @@ public class caseCreationPageSteps {
         caseCreationPage.verifyAutoPopulatedMODCaseDetails();
     }
 
+    @And("I verify the auto populated case details for Incident Accident Record Type")
+    public void iVerifyAutoPopulatedIncidentAccidentCaseDetails() {
+        caseCreationPage.verifyAutoPopulatedIncidentAccidentCaseDetails();
+    }
+
     @And("I enter the required case test data for Late Club Opening")
     public void iEnterRequiredLateClubOpeningCaseTestData() {
         caseCreationPage.enterRequiredLateClubOpeningCaseTestData();
@@ -52,6 +67,11 @@ public class caseCreationPageSteps {
     @And("I enter the required case test data for MOD Record Type")
     public void iEnterRequiredMODCaseTestData() {
         caseCreationPage.enterRequiredMODCaseTestData();
+    }
+
+    @And("I enter the required case test data for Incident Accident")
+    public void iEnterRequiredIncidentAccidentCaseTestData() {
+        caseCreationPage.enterRequiredIncidentAccidentCaseTestData();
     }
 
     @And("I submit the case")

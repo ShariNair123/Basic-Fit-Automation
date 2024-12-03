@@ -2,6 +2,7 @@ package pages;
 
 import base.driverContext;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -32,13 +33,31 @@ public class unPlannedunStaffed_Page {
     private @FindBy(xpath = "//flowruntime-lwc-field//div[1]//label[contains(text(),'Status')]/following-sibling::div//input[@class='slds-input']")
     WebElement RequestStatus_Drpdwn;
     private @FindBy(xpath = "//lightning-datepicker[@class='slds-form-element']//input[@name='Request_Start_Date_Time']")
-    WebElement RequestStartDatenTime_clndr;
+    WebElement RequestStartDatenTime_fld;
     private @FindBy(xpath = "//lightning-datepicker[@class='slds-form-element']//input[@name='Request_End_Date_Time']")
-    WebElement RequestEndDatenTime_clndr;
+    WebElement RequestEndDatenTime_fld;
+
+
+    //DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM"); // For month
+    //DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy"); // For year
+    //DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("d");// For day
+    //String todayMonth = today.format(monthFormatter);
+    //String todayYear = today.format(yearFormatter);
+    //String todayDay = today.format(dayFormatter);
+
+
     LocalDate today = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String formattedDateToday = today.format(formatter);
+
     LocalDate tomorrow = LocalDate.now().plusDays(1);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
-    //write end date time if possible
+    String formattedDateTomorrow = tomorrow.format(formatter);
+
+
+    //LocalDate tomorrow = LocalDate.now().plusDays(1);
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+
+
     private @FindBy(xpath = "//input[@name='Other_Description']")
     WebElement OtherDescr_txt;
     private @FindBy(xpath = "//button[normalize-space()='Continue']")
@@ -69,15 +88,28 @@ public class unPlannedunStaffed_Page {
         RequestType_option.click();
         String requestStatusValue = RequestStatus_Drpdwn.getAttribute("value");
         Assert.assertEquals(requestStatusValue , "Pending",  "Request Status should be Pending");
-        RequestStartDatenTime_clndr.click();
-        String todayDate = today.format(formatter);
-        WebElement todayElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + todayDate + "']"));
-        todayElement.click();
-        commonmethods.scrollIntoTheViewAndClick(RequestEndDatenTime_clndr);
+        RequestStartDatenTime_fld.click();
+        RequestStartDatenTime_fld.clear();
+        RequestStartDatenTime_fld.sendKeys(formattedDateToday);
+
+
+        //String todayDateXPath = "//td[@role='gridcell' and @data-month='" + todayMonth + "' and @data-year='" + todayYear + "']//span[text()='" + todayDay + "']";
+        //WebElement todayElement = driverContext.Driver.findElement(By.xpath(todayDateXPath));
+        //todayElement.click();
+
+        //String todayDate = today.format(formatter);
+        //WebElement todayElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + todayDate + "']"));
+        //todayElement.click();
+        commonmethods.scrollIntoTheViewAndClick(RequestEndDatenTime_fld);
+        RequestEndDatenTime_fld.click();
+        RequestEndDatenTime_fld.clear();
+        RequestEndDatenTime_fld.sendKeys(formattedDateTomorrow);
+
+
         //RequestEndDatenTime_clndr.click();
-        String tomorrowDate = tomorrow.format(formatter);
-        WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
-        tomorrowElement.click();
+        //String tomorrowDate = tomorrow.format(formatter);
+        //WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
+        //tomorrowElement.click();
         OtherDescr_txt.sendKeys("Automation Text");
         Continue_Btn.click();
     }

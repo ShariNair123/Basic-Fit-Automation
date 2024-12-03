@@ -54,13 +54,16 @@ public class investigationRequest_Page {
     private @FindBy(xpath = "//button[normalize-space()='Submit Investigation Request']")
     WebElement Submit_btn;
     private @FindBy(xpath = "//lightning-datepicker[@class='slds-form-element']//input[@name='Start_Date_Time']")
-    WebElement StartDatenTime_clndr;
+    WebElement StartDatenTime_fld;
     private @FindBy(xpath = "//lightning-datepicker[@class='slds-form-element']//input[@name='End_Date_Time']")
-    WebElement EndDatenTime_clndr;
+    WebElement EndDatenTime_fld;
     LocalDate today = LocalDate.now();
     LocalDate twoDaysBack = LocalDate.now().minusDays(2);
     LocalDate oneDayBack = LocalDate.now().minusDays(1);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String formattedEndDate = today.format(formatter);
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+    String formattedStartDate = twoDaysBack.format(formatter);
 
 
 
@@ -91,20 +94,27 @@ public class investigationRequest_Page {
         IncCtgry_drpdwn.click();
         IncCtgry_option.click();
 
-        StartDatenTime_clndr.click();
-        String startDate = twoDaysBack.format(formatter);
-        WebElement startDateElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + startDate + "']"));
-        startDateElement.click();
-        commonmethods.scrollIntoTheViewAndClick(EndDatenTime_clndr);
+        StartDatenTime_fld.click();
+        StartDatenTime_fld.clear();
+        StartDatenTime_fld.sendKeys(formattedStartDate);
+
+        //String startDate = twoDaysBack.format(formatter);
+        //WebElement startDateElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + startDate + "']"));
+        //startDateElement.click();
+
+        commonmethods.scrollIntoTheViewAndClick(EndDatenTime_fld);
+        EndDatenTime_fld.click();
+        EndDatenTime_fld.clear();
+        EndDatenTime_fld.sendKeys(formattedEndDate);
 
         //String endDate = oneDayBack.format(formatter);
         //WebElement endDateElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + endDate + "']"));
         //endDateElement.click();
 
 
-        String endDate = today.format(formatter);
-        WebElement endDateElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + endDate + "']"));
-        endDateElement.click();
+        //String endDate = today.format(formatter);
+        //WebElement endDateElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + endDate + "']"));
+        //endDateElement.click();
 
 
         AllInv_chkbox.click();

@@ -38,11 +38,11 @@ public class HomePage {
     }
 
     public void SearchForItem() {
-        driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driverContext.Driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         commonmethods.waitForLoad();
         //adding the below 1 line temporary for testing
-        //accounts_Page.setAccountName("Basic-Fit Lyon5187 Test Automation");
-        commonmethods.staticWait(8000);
+        //accounts_Page.setAccountName("Basic-Fit Lyon7912 Test Automation");
+        commonmethods.staticWait(5000);
         for(WebElement ele: close_Btns)
         {
             commonmethods.clickByJS(ele);

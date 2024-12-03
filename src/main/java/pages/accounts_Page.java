@@ -143,7 +143,7 @@ public class accounts_Page {
         NextButton.click();
         commonmethods.waitForLoad();
         commonmethods.waitUntilWebElementIsVisible(SaveButton);
-        commonmethods.staticWait(8000);
+        commonmethods.staticWait(5000);
         commonmethods.waitUntilWebElementIsVisible(AccountNameField);
         AccountNameField.sendKeys(accountDeatilsData.get(0).get("AccountName"));
         BrokerField.sendKeys(accountDeatilsData.get(0).get("Broker"));

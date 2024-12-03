@@ -28,4 +28,5 @@ public class caseDetailPageSteps {
     public void iVerifyMODCaseDetails() {
         caseDetailPage.verifyMODCaseDetails();
     }
+
 }

@@ -4,6 +4,7 @@ import base.driverContext;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -26,20 +27,26 @@ public class caseCreation_Page {
 
     private @FindBy(xpath = "//span[normalize-space()='Cases']")
     WebElement Cases_title;
+    private @FindBy(xpath = "//span[@class='slds-truncate'][normalize-space()='Cases']")
+    WebElement CMAppCases_title;
     private @FindBy(xpath = "//div[@title='New']")
     WebElement NewCase_Btn;
     private @FindBy(xpath = "//span[normalize-space()='Agent HC Belgium (Dutch)']")
     WebElement AgentDutch_lbl;
     private @FindBy(xpath = "//label[.//span[text()='Late Club Opening']]//span[@class='slds-radio--faux']")
     WebElement LateClubOpening_RdoBtn;
+    private @FindBy(xpath = "//span[normalize-space()='Incident / Accident']/ancestor::label//input[@type='radio']")
+    WebElement IncidentAccident_RdoBtn;
     private @FindBy(xpath = "//span[normalize-space()='MOD']/ancestor::label//input[@type='radio']")
     WebElement MOD_RdoBtn;
     private @FindBy(xpath = "//span[normalize-space()='Next']")
     WebElement Next_Btn;
-    private @FindBy(xpath = "//div[@class='slds-form-element slds-hint-parent test-id__output-root slds-form-element_stacked']//slot[contains(text(),'Automation RS')]")
+    private @FindBy(xpath = "//div[@class='slds-form-element slds-hint-parent test-id__output-root slds-form-element_readonly recordlayout_in_editing_mode is-stacked']//slot[contains(text(),'Automation RS')]")
     WebElement CaseOwnerlteclbopng_Txt;
     private @FindBy(xpath = "//div[@class='slds-form-element slds-hint-parent test-id__output-root slds-form-element_stacked']//slot[contains(text(),'Automation MOD')]")
     WebElement CaseOwnerMOD_Txt;
+    private @FindBy(xpath = "//div[@class='slds-form-element__control']//slot[contains(text(),'Automation MARC')]")
+    WebElement CaseOwnerIncAcc_Txt;
     private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Case.RecordTypeId']//span[contains(text(),'Late Club Opening')]")
     WebElement CaseRecordTypelteclbopng_Txt;
     private @FindBy(xpath = "//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'MOD')]")
@@ -86,8 +93,6 @@ public class caseCreation_Page {
     WebElement SelectCaseOutcome_drpdwn;
     private @FindBy(xpath = "//div[@class='slds-form-element__control slds-input-has-icon slds-input-has-icon_right']//input[@name='Club_opened_at__c']")
     WebElement ClubOpenDate_cldr;
-    LocalDate today = LocalDate.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
     private @FindBy(xpath = "//textarea[@class='slds-textarea']")
     WebElement Description_txt;
     private @FindBy(xpath = "//div[normalize-space()='People involved']")
@@ -134,7 +139,30 @@ public class caseCreation_Page {
     WebElement RSTechReport_fld;
     private @FindBy(xpath = "//div[@aria-label='RS Technical Report']//div[@class='ql-editor ql-blank slds-rich-text-area__content slds-grow slds-text-color_weak']")
     WebElement RSTechReport_txt;
+    private @FindBy(xpath = "//div[@class='slds-form-element__control slds-input-has-icon slds-input-has-icon_right']//input[@name='Date_and_time_of_the_incident__c']")
+    WebElement IncDate_fld;
+    private @FindBy(xpath = "//input[@class='slds-combobox__input slds-input slds-combobox__input-value']")
+    WebElement IncTime_fld_drpdwn;
+    private @FindBy(xpath = "//button[@aria-label='MARC Priority']//span[@class='slds-truncate'][normalize-space()='--None--']")
+    WebElement MARCPriority_drpdwn;
+    private @FindBy(xpath = "//lightning-base-combobox-item[@data-value='Prio 1 - Fire']")
+    WebElement MARCPriority_optn;
+    private @FindBy(xpath = "//button[@aria-label='Reported through']")
+    WebElement RprtdThru_drpdwn;
+    private @FindBy(xpath = "//lightning-base-combobox-item[@data-value='SCS']")
+    WebElement RprtdThru_optn;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Case.Further_Details__c']//textarea[@class='slds-textarea']")
+    WebElement MARCDesc_txt;
+    private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Case.Description']//textarea[@class='slds-textarea']")
+    WebElement IncAccDesc_txt;
 
+
+
+
+    LocalDate today = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String formattedDateToday = today.format(formatter);
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
 
 
 
@@ -152,6 +180,24 @@ public class caseCreation_Page {
         commonmethods.clickByJS(Cases_title);
         //Cases_title.click();
     }
+
+    public void goToCMAppCasesPage() {
+        //commonmethods.staticWait(2000);
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(3000);
+        try {
+            WebElement popupMessage = (driverContext.Driver.findElement(By.xpath("//span[normalize-space()='Continue logging into Omni-Channel?']")));
+            if (popupMessage.isDisplayed()) {
+                WebElement cancelButton = (driverContext.Driver.findElement(By.xpath("//button[normalize-space()='Cancel']")));
+                cancelButton.click();
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Popup not displayed, proceeding without action.");
+        }
+        commonmethods.staticWait(3000);
+        commonmethods.clickByJS(CMAppCases_title);
+    }
+
 
     public void clickNewButton() {
         //commonmethods.staticWait(2000);
@@ -180,10 +226,18 @@ public class caseCreation_Page {
         Next_Btn.click();
     }
 
+    public void verifyRecordTypeIncidentAccident() {
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(2000);
+        //commonmethods.waitUntilWebElementIsVisible(LateClubOpening_RdoBtn);
+        Assert.assertTrue(IncidentAccident_RdoBtn.isSelected(), "The Incident Accident radio button should be selected.");
+        Next_Btn.click();
+    }
+
     public void verifyAutoPopulatedLateClubOpeningCaseDetails() {
         //commonmethods.waitForLoad();
         //commonmethods.waitUntilWebElementIsVisible(CaseOwner_Txt);
-        commonmethods.staticWait(2000);
+        commonmethods.staticWait(4000);
         String caseOwnerLateClubOpening = CaseOwnerlteclbopng_Txt.getText();
         Assert.assertEquals(caseOwnerLateClubOpening, "Automation RS", "Case Owner should be Automation RS");
         String caseRecordTypeLateClubOpening = CaseRecordTypelteclbopng_Txt.getText();
@@ -204,6 +258,17 @@ public class caseCreation_Page {
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//button[@aria-label='Status']//span[@class='slds-truncate'][normalize-space()='New']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//force-record-output-picklist[normalize-space()='Medium']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//force-record-output-picklist[normalize-space()='RS Club Incidents / Accidents']")).isDisplayed());
+    }
+
+    public void verifyAutoPopulatedIncidentAccidentCaseDetails() {
+        //commonmethods.waitForLoad();
+        //commonmethods.waitUntilWebElementIsVisible(CaseOwner_Txt);
+        commonmethods.staticWait(3000);
+        String caseOwnerIncAcc = CaseOwnerIncAcc_Txt.getText();
+        Assert.assertEquals(caseOwnerIncAcc, "Automation MARC", "Case Owner should be Automation MARC");
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//button[@aria-label='Status']//span[@class='slds-truncate'][normalize-space()='New']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//force-record-output-picklist[normalize-space()='Medium']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//div[@class='recordTypeName slds-grow slds-truncate']//span[contains(text(),'Incident / Accident')]")).isDisplayed());
     }
 
     public void enterRequiredLateClubOpeningCaseTestData() {
@@ -271,6 +336,23 @@ public class caseCreation_Page {
         ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", RSTechReport_fld);
         RSTechReport_fld.click();
         ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].innerText = 'RS Tech Report Automation';", RSTechReport_txt);
+    }
+
+    public void enterRequiredIncidentAccidentCaseTestData() {
+        //ClubInv_lkup.sendKeys(accounts_Page.getAccountName());
+        CostCenter_txt.sendKeys(accounts_Page.getCostCenter());
+        commonmethods.waitForLoad();
+        Subject_txt.sendKeys("Test Automation Subject");
+        IncDate_fld.click();
+        IncDate_fld.clear();
+        IncDate_fld.sendKeys(formattedDateToday);
+        //IncTime_fld_drpdwn.click();
+        //IncTime_fld_drpdwn.clear();
+        //IncTime_fld_drpdwn.sendKeys("0:00");
+        MARCPriority_drpdwn.click();
+        MARCPriority_optn.click();
+        RprtdThru_drpdwn.click();
+        RprtdThru_optn.click();
     }
 
     public void submitCase() {

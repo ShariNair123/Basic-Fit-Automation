@@ -1,5 +1,6 @@
 Feature: Temporary Close Club
 
+
   Background:
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfittest001@gmail.com"

@@ -31,17 +31,17 @@ public class login_Page {
 
     public void performLogin(String username) throws IOException {
 
-            commonmethods.staticWait(8000);
+            commonmethods.staticWait(5000);
             userNameField.sendKeys(username);
             password_Field.sendKeys(utilityFecthProperty.fetchPropertyValue(username));
             LoginButton_Field.click();
-            driverContext.Driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+            driverContext.Driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             commonmethods.waitForLoad();
     }
 
     public void navigateToAccountsPage()
     {
-        commonmethods.staticWait(20000);
+        commonmethods.staticWait(8000);
         /*JavascriptExecutor js = (JavascriptExecutor) driverContext.Driver;
         js.executeScript("arguments[0].click();", Accounts_Link);*/
         System.out.println();

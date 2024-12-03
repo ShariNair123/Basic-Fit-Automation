@@ -39,7 +39,7 @@ public class createIncidentMOD_Page {
     private @FindBy(xpath = "//select[@name='dp_Reopening_type']/option[@value='reopeningTypeChoices.Known']")
     WebElement ReopeningType_known;
     private @FindBy(xpath = "//input[@name='dp_Reopening_Date']")
-    WebElement ReopeningDate_clndr;
+    WebElement ReopeningDate_fld;
     private @FindBy(xpath = "//select[@name='dp_Reopening_time']")
     WebElement ReopeningTime_clndr;
     private @FindBy(xpath = "//option[@value='reopeningTimeChoices.08:00']")
@@ -57,7 +57,9 @@ public class createIncidentMOD_Page {
     private @FindBy(xpath = "//lightning-formatted-text[normalize-space()='Incident']")
     WebElement ClosureReason_txt;
     LocalDate tomorrow = LocalDate.now().plusDays(1);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    String formattedDate = tomorrow.format(formatter);
+    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
 
 
 
@@ -101,11 +103,14 @@ public class createIncidentMOD_Page {
         OtherDescr_txt.sendKeys("Automation Test");
         ReopeningType_dropdown.click();
         ReopeningType_known.click();
-        commonmethods.scrollIntoTheViewAndClick(ReopeningDate_clndr);
+        commonmethods.scrollIntoTheViewAndClick(ReopeningDate_fld);
         //ReopeningDate_clndr.click();
-        String tomorrowDate = tomorrow.format(formatter);
-        WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
-        tomorrowElement.click();
+        ReopeningDate_fld.clear();
+        ReopeningDate_fld.sendKeys(formattedDate);
+
+        //String tomorrowDate = tomorrow.format(formatter);
+        //WebElement tomorrowElement = driverContext.Driver.findElement(By.xpath("//td[@role='gridcell']//span[text()='" + tomorrowDate + "']"));
+        //tomorrowElement.click();
         commonmethods.scrollIntoTheViewAndClick(ReopeningTime_clndr);
         //ReopeningTime_clndr.click();
         ReopeningTimeSelect_drpdwn.click();
