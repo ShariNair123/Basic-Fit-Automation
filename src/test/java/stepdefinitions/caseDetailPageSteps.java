@@ -29,4 +29,9 @@ public class caseDetailPageSteps {
         caseDetailPage.verifyMODCaseDetails();
     }
 
+    @And("I verify the created Incident Accident case details")
+    public void iVerifyIncidentAccidentCaseDetails() {
+        caseDetailPage.verifyIncidentAccidentCaseDetails();
+    }
+
 }

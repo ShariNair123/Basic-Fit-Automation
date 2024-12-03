@@ -33,3 +33,4 @@ Feature: Case Creation Incident/Accident
     And I enter the required case test data for Incident Accident
     And I submit the case
     And I verify the success toast message for case creation
+    And I verify the created Incident Accident case details

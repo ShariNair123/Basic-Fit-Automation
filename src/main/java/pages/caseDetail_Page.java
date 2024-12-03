@@ -77,4 +77,16 @@ public class caseDetail_Page {
        Assert.assertEquals(actualSubjectText, expectedSubjectText, "Subject field text does not match the expected format.");
     }
 
+    public void verifyIncidentAccidentCaseDetails() {
+
+        commonmethods.waitForLoad();
+        commonmethods.staticWait(2000);
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='New']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='Medium']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Prio 1 - Fire']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='SCS']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//span[normalize-space()='Incident / Accident']")).isDisplayed());
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[@data-output-element-id='output-field'][normalize-space()='Test Automation Subject']")).isDisplayed());
+    }
+
 }
