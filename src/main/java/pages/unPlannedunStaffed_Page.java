@@ -2,6 +2,7 @@ package pages;
 
 import base.driverContext;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,6 +37,14 @@ public class unPlannedunStaffed_Page {
     WebElement RequestStartDatenTime_fld;
     private @FindBy(xpath = "//lightning-datepicker[@class='slds-form-element']//input[@name='Request_End_Date_Time']")
     WebElement RequestEndDatenTime_fld;
+    private @FindBy(xpath = "//lightning-timepicker[@class='slds-form-element']//input[@name='Request_Start_Date_Time']")
+    WebElement RequestStartTime_fld;
+    private @FindBy(xpath = "//div[@class='slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid slds-dropdown_left']//lightning-base-combobox-item[@data-value='23:45:00.000']")
+    WebElement RequestStartTime_optn;
+    private @FindBy(xpath = "//lightning-timepicker[@class='slds-form-element']//div[@class='slds-form-element__control']//div[@class='slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid slds-dropdown_left']")
+    WebElement RequestStartTime_drpdwn;
+
+
 
 
     //DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM"); // For month
@@ -91,6 +100,12 @@ public class unPlannedunStaffed_Page {
         RequestStartDatenTime_fld.click();
         RequestStartDatenTime_fld.clear();
         RequestStartDatenTime_fld.sendKeys(formattedDateToday);
+        RequestStartTime_fld.click();
+
+        //RequestStartTime_optn.click();
+
+        //RequestStartTime_fld.clear();
+        //RequestStartTime_fld.sendKeys("23:45");
 
 
         //String todayDateXPath = "//td[@role='gridcell' and @data-month='" + todayMonth + "' and @data-year='" + todayYear + "']//span[text()='" + todayDay + "']";

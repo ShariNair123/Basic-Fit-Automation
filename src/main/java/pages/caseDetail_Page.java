@@ -65,9 +65,9 @@ public class caseDetail_Page {
 
     public void verifyMODCaseDetails() {
         commonmethods.waitForLoad();
+        commonmethods.staticWait(3000);
         String clubInvMODValue = ClubInvMOD_Txt.getText();
         Assert.assertEquals(accounts_Page.getAccountName(), clubInvMODValue, "Club Name should be same");
-        commonmethods.staticWait(2000);
         String caseStatusMOD = CaseStatusMOD_Txt.getText();
         Assert.assertEquals(caseStatusMOD, "Open", "Case Status should be Open");
         String actualSubjectText = Subject_fld.getText();

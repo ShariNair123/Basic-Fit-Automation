@@ -250,7 +250,7 @@ public class caseCreation_Page {
     public void verifyAutoPopulatedMODCaseDetails() {
         //commonmethods.waitForLoad();
         //commonmethods.waitUntilWebElementIsVisible(CaseOwner_Txt);
-        commonmethods.staticWait(2000);
+        commonmethods.staticWait(5000);
         String caseOwnerMOD = CaseOwnerMOD_Txt.getText();
         Assert.assertEquals(caseOwnerMOD, "Automation MOD", "Case Owner should be Automation MOD");
         String caseRecordTypeMOD = CaseRecordTypeMOD_Txt.getText();
@@ -302,6 +302,7 @@ public class caseCreation_Page {
         //ClubInv_option.click();
         Summary_txt.sendKeys("Test Summary");
         ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", IncidentCtgry_drpdwn);
+        commonmethods.staticWait(1000);
         IncidentCtgry_option.click();
         IncidentSubCtgry_drpdwn.click();
         IncidentSubCtgry_option.click();
