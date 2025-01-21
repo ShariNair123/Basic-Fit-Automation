@@ -107,8 +107,9 @@ public class clubActivity_Page {
     private @FindBy(xpath = "//div[@data-target-selection-name='sfdc:RecordField.Club_Activity__c.Partial_Reopening_End_Date__c']//lightning-formatted-text[@data-output-element-id='output-field']")
     WebElement PartialReopeningDate_text;
     List<WebElement> MntnceOwnerValue_fld = driverContext.Driver.findElements(By.xpath("//records-record-layout-item[@field-label='Owner']//slot[contains(text(), 'Automation Business Support')]"));
-
-
+    private @FindBy(xpath = "//span[normalize-space()='Record Type']")
+    WebElement IncRecType_lbl;
+   
 
     LocalDate tomorrow = LocalDate.now().plusDays(1);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -153,7 +154,8 @@ public class clubActivity_Page {
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Club damage']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Water leakage']")).isDisplayed());
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Automation Test']")).isDisplayed());
-        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//span[normalize-space()='Incident']")).isDisplayed());
+        ((JavascriptExecutor) driverContext.Driver).executeScript("arguments[0].scrollIntoView(true);", IncRecType_lbl);
+        Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//slot[@name='outputField']//span[contains(text(),'Incident')]")).isDisplayed());
     }
 
     public void verifyIncidentCASpecificDetailsUnknown() {

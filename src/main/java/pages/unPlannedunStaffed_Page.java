@@ -103,6 +103,7 @@ public class unPlannedunStaffed_Page {
         RequestStartDatenTime_fld.clear();
         RequestStartDatenTime_fld.sendKeys(formattedDateTomorrow);
         RequestStartTime_fld.click();
+        commonmethods.staticWait(3000);
 
         //RequestStartTime_optn.click();
 
@@ -121,6 +122,7 @@ public class unPlannedunStaffed_Page {
         RequestEndDatenTime_fld.click();
         RequestEndDatenTime_fld.clear();
         RequestEndDatenTime_fld.sendKeys(formattedDayAfterTomorrow);
+        commonmethods.staticWait(3000);
 
 
         //RequestEndDatenTime_clndr.click();

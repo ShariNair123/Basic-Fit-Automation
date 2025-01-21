@@ -1,4 +1,5 @@
 Feature: UnPlanned UnStaffed Request To MARC
+
   Background:
     Given I am in the login page of fit bit application
     When I login into fit application as "basicfittest001@gmail.com"
@@ -20,7 +21,6 @@ Feature: UnPlanned UnStaffed Request To MARC
     #And I add Club Managers
     And I verify that the Account Record Type is Club
     And I perform logout
-
 
 
   @RequestToMARCUnPlannedUnStaffed
