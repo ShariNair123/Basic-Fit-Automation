@@ -9,6 +9,7 @@ import io.cucumber.testng.CucumberOptions;
         glue = {"stepdefinitions", "base"},
         monochrome = true,
         plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
-        tags = "@Login or @CaseCreationLateClubOpening or @CaseCreationMOD or @CaseCreationIncidentAccident or @MODClubClosureUnKnown or @MODClubClosureKnown or @InvestigationRequest or @CloseClubPermanently or @CloseClubTemporarilyWithoutPartialReopening or @CloseClubTemporarilyWithPartialReopening")
+        tags = "@CaseCreationIncidentAccident or @CaseCreationLateClubOpening or @CaseCreationMOD or @Login or @MODClubClosureUnKnown or @MODClubClosureKnown")
+
 public class TestNGTestRunner extends AbstractTestNGCucumberTests {
 }

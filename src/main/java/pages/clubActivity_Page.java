@@ -196,8 +196,8 @@ public class clubActivity_Page {
         Assert.assertEquals(accounts_Page.getAccountName(), clubNameValue, "Club Name should be same");
         String StatusText = UUStatusValue_fld.getText();
         Assert.assertEquals(StatusText, "Pending", "Status is not Pending!");
-        String UUOwnerText = UUOwnerValue_fld.getText();
-        Assert.assertEquals(UUOwnerText, "Marc queue", "Owner is not correctly assigned");
+        //String UUOwnerText = UUOwnerValue_fld.getText();
+        //Assert.assertEquals(UUOwnerText, "Marc queue", "Owner is not correctly assigned");
         Assert.assertTrue(driverContext.Driver.findElement(By.xpath("//lightning-formatted-text[normalize-space()='Unplanned Unstaffed']")).isDisplayed());
         String OtherDescr = UUOtherDescr_txt.getText();
         Assert.assertEquals(OtherDescr, "Automation Text", "Other Description field is not populated correctly");

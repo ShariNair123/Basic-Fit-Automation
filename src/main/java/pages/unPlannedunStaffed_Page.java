@@ -61,6 +61,8 @@ public class unPlannedunStaffed_Page {
 
     LocalDate tomorrow = LocalDate.now().plusDays(1);
     String formattedDateTomorrow = tomorrow.format(formatter);
+    LocalDate dayaftertomorrow = LocalDate.now().plusDays(2);
+    String formattedDayAfterTomorrow = dayaftertomorrow.format(formatter);
 
 
     //LocalDate tomorrow = LocalDate.now().plusDays(1);
@@ -99,7 +101,7 @@ public class unPlannedunStaffed_Page {
         Assert.assertEquals(requestStatusValue , "Pending",  "Request Status should be Pending");
         RequestStartDatenTime_fld.click();
         RequestStartDatenTime_fld.clear();
-        RequestStartDatenTime_fld.sendKeys(formattedDateToday);
+        RequestStartDatenTime_fld.sendKeys(formattedDateTomorrow);
         RequestStartTime_fld.click();
 
         //RequestStartTime_optn.click();
@@ -118,7 +120,7 @@ public class unPlannedunStaffed_Page {
         commonmethods.scrollIntoTheViewAndClick(RequestEndDatenTime_fld);
         RequestEndDatenTime_fld.click();
         RequestEndDatenTime_fld.clear();
-        RequestEndDatenTime_fld.sendKeys(formattedDateTomorrow);
+        RequestEndDatenTime_fld.sendKeys(formattedDayAfterTomorrow);
 
 
         //RequestEndDatenTime_clndr.click();
